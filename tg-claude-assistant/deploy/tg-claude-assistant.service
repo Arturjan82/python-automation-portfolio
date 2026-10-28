@@ -1,0 +1,18 @@
+# Автозапуск на Linux-сервере (Debian/Ubuntu).
+# Положите в /etc/systemd/system/, поправьте пути и выполните:
+#   sudo systemctl daemon-reload && sudo systemctl enable --now tg-claude-assistant
+[Unit]
+Description=Telegram assistant on Claude API
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=bot
+WorkingDirectory=/opt/tg-claude-assistant
+ExecStart=/opt/tg-claude-assistant/.venv/bin/python bot.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
